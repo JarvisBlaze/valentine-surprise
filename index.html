@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Message for Puchu... ✨</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Montserrat:wght@300;600;800&display=swap" rel="stylesheet">
+    <title>A Question for Puchu... ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --lovely-pink: #ffafbd;
-            --soft-rose: #ffc3a0;
-            --gold: #d4af37;
+            --pink-1: #ffafbd;
+            --pink-2: #ffc3a0;
+            --white: #ffffff;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            /* The lovely pink background you requested */
-            background: linear-gradient(135deg, var(--lovely-pink) 0%, var(--soft-rose) 100%);
+            /* Your lovely pink background */
+            background: linear-gradient(135deg, var(--pink-1) 0%, var(--pink-2) 100%);
             height: 100vh;
             width: 100vw;
             display: flex;
@@ -24,37 +24,36 @@
             justify-content: center;
             font-family: 'Montserrat', sans-serif;
             overflow: hidden;
+            position: relative;
         }
 
-        /* Glassmorphism Card */
-        .card {
+        /* The Proposal Card - Guaranteed Visibility */
+        #mainUI {
             position: relative;
-            z-index: 10;
+            z-index: 100;
             padding: 50px 30px;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.3);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            border: 2px solid rgba(255, 255, 255, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.5);
             border-radius: 40px;
             text-align: center;
             box-shadow: 0 20px 50px rgba(0,0,0,0.1);
             width: 90%;
             max-width: 450px;
-            animation: float 4s infinite ease-in-out;
+            display: block; /* Ensures it shows up */
         }
-
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
         h1 {
             font-family: 'Cinzel Decorative', cursive;
-            font-size: 2.8rem;
+            font-size: 3rem;
             color: #fff;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
         }
 
         .subtitle {
-            font-size: 0.9rem;
+            font-size: 1rem;
             letter-spacing: 3px;
             text-transform: uppercase;
             margin-bottom: 40px;
@@ -67,18 +66,17 @@
             justify-content: center;
             align-items: center;
             gap: 20px;
-            min-height: 80px;
+            min-height: 100px;
         }
 
         .btn {
             padding: 15px 40px;
             font-size: 1rem;
-            font-weight: 700;
+            font-weight: 800;
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
             text-transform: uppercase;
-            letter-spacing: 1px;
             border: none;
         }
 
@@ -86,18 +84,17 @@
             background: #fff;
             color: #ff6a88;
             box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-            z-index: 20;
         }
 
         #noBtn {
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.4);
             color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            position: relative;
-            z-index: 100;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            position: absolute; /* Changed to absolute for initial layout */
+            transition: 0.1s ease;
         }
 
-        /* The Cinematic Overlay */
+        /* Cinematic Celebration Overlay */
         .overlay {
             display: none;
             position: fixed;
@@ -113,20 +110,18 @@
 
         .user-img {
             max-width: 280px;
-            max-height: 350px;
-            border-radius: 20px;
-            border: 5px solid #fff;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            border-radius: 30px;
+            border: 6px solid #fff;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
             margin-bottom: 25px;
             animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         @keyframes popIn { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-        .celebration-text {
-            font-family: 'Cinzel Decorative', cursive;
+        .final-text {
             color: #fff;
-            font-size: 2.2rem;
+            font-family: 'Cinzel Decorative', cursive;
             margin-bottom: 10px;
         }
 
@@ -135,20 +130,21 @@
             font-size: 1.1rem;
             font-weight: 600;
             max-width: 80%;
+            line-height: 1.5;
         }
 
         .particle {
             position: fixed;
             pointer-events: none;
-            z-index: 999;
+            z-index: 1100;
             border-radius: 50%;
         }
     </style>
 </head>
 <body>
 
-    <div class="card" id="mainUI">
-        <div style="font-size: 40px; margin-bottom: 20px;">💘</div>
+    <div id="mainUI">
+        <div style="font-size: 50px; margin-bottom: 20px;">🌹</div>
         <h1>Puchu</h1>
         <p class="subtitle">Will you be my Valentine?</p>
         <div class="btn-container">
@@ -158,30 +154,30 @@
     </div>
 
     <div id="yesScreen" class="overlay">
-        <img src="WhatsApp%20Image%202026-02-07%20at%2000.57.44.jpeg" class="user-img" alt="Our Special Moment">
+        <img src="WhatsApp%20Image%202026-02-07%20at%2000.57.44.jpeg" class="user-img" alt="Puchu and Pranjal">
         
-        <h1 class="celebration-text">Yay! 🥰</h1>
-        <h2 style="color: #fff; margin-bottom: 15px;">I will come after you on 14th :]]]</h2>
-        <p class="funny-msg">Warning: The "No" button has officially retired due to lack of use. Prepare for extreme levels of attention and chocolate! 🍫✨</p>
+        <h1 class="final-text">She said YES! ✨</h1>
+        <h2 style="color: #fff; margin-bottom: 20px;">I will come after you on 14th :]]]</h2>
+        <p class="funny-msg">Better start practicing your "surprised face" now, because I'm planning to be extremely annoying with how much I'll spoil you! ❤️🍫</p>
     </div>
 
     <script>
         const noBtn = document.getElementById('noBtn');
 
-        // FIXED DODGE LOGIC: Keeps the button inside the visible screen area
+        // FIXED DODGE: Ensures it stays inside the viewport at all times
         function dodge() {
-            const margin = 100; // Keeps it away from the extreme edges
-            const safeWidth = window.innerWidth - noBtn.offsetWidth - margin;
-            const safeHeight = window.innerHeight - noBtn.offsetHeight - margin;
+            const margin = 80;
+            const maxX = window.innerWidth - noBtn.offsetWidth - margin;
+            const maxY = window.innerHeight - noBtn.offsetHeight - margin;
 
-            // Generate coordinates within the "safe zone"
-            const randomX = Math.max(margin, Math.random() * safeWidth);
-            const randomY = Math.max(margin, Math.random() * safeHeight);
+            // Stay within safe bounds
+            const randomX = Math.max(margin, Math.random() * maxX);
+            const randomY = Math.max(margin, Math.random() * maxY);
 
             noBtn.style.position = 'fixed';
             noBtn.style.left = randomX + 'px';
             noBtn.style.top = randomY + 'px';
-            noBtn.style.transition = 'all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            noBtn.style.zIndex = '999';
         }
 
         function celebrate() {
@@ -190,29 +186,29 @@
             triggerCinematicBurst();
         }
 
-        // The "Cool" Cinematic Burst Animation
+        // High-Quality Cinematic Particle Explosion
         function triggerCinematicBurst() {
-            const colors = ['#ffffff', '#ffd700', '#ff6a88', '#ffafbd'];
-            for(let i=0; i<180; i++) {
+            const colors = ['#ffffff', '#ffd700', '#ff6a88', '#ffafbd', '#ffecf0'];
+            for(let i=0; i<200; i++) {
                 const p = document.createElement('div');
                 p.className = 'particle';
-                const size = Math.random() * 8 + 4 + 'px';
+                const size = Math.random() * 10 + 5 + 'px';
                 p.style.width = size;
                 p.style.height = size;
                 p.style.background = colors[Math.floor(Math.random() * colors.length)];
                 p.style.left = '50vw';
                 p.style.top = '50vh';
-                p.style.boxShadow = `0 0 12px ${p.style.background}`;
+                p.style.boxShadow = `0 0 15px ${p.style.background}`;
                 document.body.appendChild(p);
 
                 const angle = Math.random() * Math.PI * 2;
-                const velocity = Math.random() * 1200 + 400;
+                const velocity = Math.random() * 1500 + 500;
                 
                 p.animate([
                     { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
                     { transform: `translate(${(Math.cos(angle) * velocity)}px, ${(Math.sin(angle) * velocity)}px) scale(0)`, opacity: 0 }
                 ], {
-                    duration: Math.random() * 2500 + 1500,
+                    duration: Math.random() * 2000 + 1500,
                     easing: 'cubic-bezier(0, .9, .57, 1)'
                 }).onfinish = () => p.remove();
             }
