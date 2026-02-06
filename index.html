@@ -1,396 +1,273 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>One Question 💖</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Question of Forever... ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@200;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --gold-gradient: linear-gradient(135deg, #f9e297 0%, #d4af37 50%, #b38728 100%);
+            --bg: #050505;
+        }
 
-  <script src="https://cdn.tailwindcss.com"></script>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  <style>
-    html, body { height: 100% }
-  </style>
+        body {
+            background-color: var(--bg);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Ambient Background */
+        #canvas-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1;
+            background: radial-gradient(circle at center, #1a0a0a 0%, #000 100%);
+        }
+
+        /* Luxury Card */
+        .proposal-card {
+            position: relative;
+            z-index: 10;
+            padding: 80px 40px;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            border-radius: 50px;
+            text-align: center;
+            box-shadow: 0 0 100px rgba(0,0,0,0.9), inset 0 0 30px rgba(212, 175, 55, 0.05);
+            width: 90%;
+            max-width: 550px;
+            animation: cardEntrance 2s ease-out;
+        }
+
+        @keyframes cardEntrance {
+            from { opacity: 0; transform: scale(0.9) translateY(30px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            letter-spacing: 5px;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            letter-spacing: 4px;
+            color: rgba(255,255,255,0.6);
+            text-transform: uppercase;
+            margin-bottom: 60px;
+        }
+
+        /* Buttons */
+        .btn-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            min-height: 100px;
+        }
+
+        .main-btn {
+            padding: 20px 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            border: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        #yesBtn {
+            background: var(--gold-gradient);
+            color: #000;
+            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.3);
+            z-index: 50;
+        }
+
+        #yesBtn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 50px var(--gold);
+        }
+
+        #noBtn {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+            position: relative; /* Script will switch this to fixed */
+        }
+
+        /* Overlay Screens */
+        .full-screen {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1000;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: var(--bg);
+        }
+
+        .sad-gif {
+            width: 300px;
+            border-radius: 20px;
+            border: 1px solid var(--gold);
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.2);
+            margin-bottom: 30px;
+        }
+
+        .gold-text {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            font-size: 4rem;
+            text-shadow: 0 0 30px var(--gold);
+        }
+
+        /* Rose Petal Style */
+        .petal {
+            position: fixed;
+            background: #ff4d6d;
+            border-radius: 150% 0 150% 0;
+            opacity: 0.7;
+            pointer-events: none;
+            z-index: 2;
+        }
+    </style>
 </head>
+<body>
 
-<body class="min-h-screen overflow-hidden text-white bg-gradient-to-br from-rose-500 via-fuchsia-500 to-indigo-600">
-  <!-- Soft glow blobs -->
-  <div class="pointer-events-none fixed inset-0 opacity-40">
-    <div class="absolute -top-20 -left-20 w-[380px] h-[380px] bg-white/30 blur-3xl rounded-full"></div>
-    <div class="absolute top-40 -right-24 w-[420px] h-[420px] bg-white/20 blur-3xl rounded-full"></div>
-    <div class="absolute -bottom-24 left-24 w-[520px] h-[520px] bg-white/20 blur-3xl rounded-full"></div>
-  </div>
+    <div id="canvas-bg"></div>
 
-  <!-- Confetti canvas -->
-  <canvas id="confetti" class="fixed inset-0 w-full h-full pointer-events-none hidden"></canvas>
-
-  <!-- Hearts layer -->
-  <div id="heartsLayer" class="fixed inset-0 pointer-events-none"></div>
-
-  <main class="relative min-h-screen flex items-center justify-center px-4">
-    <section class="w-full max-w-xl">
-      <div id="card" class="backdrop-blur-xl bg-white/10 border border-white/20 rounded-3xl shadow-2xl p-6 sm:p-8">
-        <div class="flex items-start gap-3">
-          <div class="text-3xl">💌</div>
-          <div>
-            <h1 id="title" class="text-2xl sm:text-3xl font-semibold leading-tight">Hey</h1>
-            <p id="subtitle" class="text-white/90 mt-1">I made a tiny page for a tiny question</p>
-          </div>
+    <div class="proposal-card" id="mainUI">
+        <div style="color: var(--gold); font-size: 1.5rem; margin-bottom: 25px;">✧</div>
+        <h1>Pranjal</h1>
+        <p class="subtitle">Will you be my Valentine?</p>
+        <div class="btn-box">
+            <button id="yesBtn" class="main-btn" onclick="celebrate()">Yes</button>
+            <button id="noBtn" class="main-btn" onmouseover="dodge()" onclick="showSad()">No</button>
         </div>
+    </div>
 
-        <div class="mt-6">
-          <div class="rounded-2xl bg-black/15 border border-white/15 p-5">
-            <p class="text-base sm:text-lg text-white/90">
-              If love had a button, I’d press it every day.
-            </p>
-            <p class="text-2xl sm:text-3xl font-bold mt-3">
-              Will you be my Valentine?
-            </p>
-            <p class="text-white/80 mt-2">
-              Promise: snacks, smiles, and lots of bad jokes.
-            </p>
-          </div>
-        </div>
+    <div id="yesScreen" class="full-screen" style="background: radial-gradient(circle, #2b0000 0%, #000 100%);">
+        <h1 class="gold-text">Always.</h1>
+        <p style="letter-spacing: 10px; margin-top: 20px; opacity: 0.8;">FEBRUARY 14, 2026</p>
+        <div style="font-size: 100px; margin-top: 40px;">🌹</div>
+    </div>
 
-        <div class="mt-6">
-          <div id="btnZone" class="relative h-16 flex items-center gap-4">
-            <button id="yesBtn"
-              class="relative z-10 px-6 py-3 rounded-2xl bg-white text-fuchsia-700 font-semibold shadow-lg
-                     hover:scale-[1.03] active:scale-[0.98] transition">
-              Yes 💖
-            </button>
+    <div id="noScreen" class="full-screen">
+        <img src="9e497f8c506f6a79c406e347634ecdb5.gif" class="sad-gif">
+        <h2 style="font-family: 'Cinzel'; margin-bottom: 20px;">Was that a mistake?</h2>
+        <p style="cursor: pointer; color: var(--gold); text-decoration: underline;" onclick="location.reload()">Let's try that again...</p>
+    </div>
 
-            <button id="noBtn"
-              class="px-6 py-3 rounded-2xl bg-black/25 border border-white/25 text-white/90 font-semibold shadow-lg
-                     hover:bg-black/35 transition">
-              No 🙃
-            </button>
-          </div>
+    <script>
+        // 1. Particle System (Rose Petals)
+        function createPetals() {
+            const container = document.getElementById('canvas-bg');
+            for(let i=0; i<30; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                const size = Math.random() * 15 + 10 + 'px';
+                petal.style.width = size;
+                petal.style.height = size;
+                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.top = -20 + 'px';
+                petal.style.opacity = Math.random() * 0.5 + 0.3;
+                
+                const duration = Math.random() * 5 + 5 + 's';
+                const delay = Math.random() * 5 + 's';
+                
+                petal.animate([
+                    { transform: `translateY(0) rotate(0deg)`, left: petal.style.left },
+                    { transform: `translateY(110vh) rotate(720deg)`, left: (parseFloat(petal.style.left) + (Math.random()*20 - 10)) + 'vw' }
+                ], {
+                    duration: parseFloat(duration) * 1000,
+                    iterations: Infinity,
+                    delay: parseFloat(delay) * 1000
+                });
+                container.appendChild(petal);
+            }
+        }
+        createPetals();
 
-          <p id="hint" class="text-white/80 mt-3 text-sm">
-            Tip: “No” feels shy today.
-          </p>
-        </div>
+        // 2. The Smart "Dodge" Logic (Fixed disappearing button)
+        const noBtn = document.getElementById('noBtn');
+        function dodge() {
+            const margin = 100; // Keep away from screen edges
+            const width = window.innerWidth - noBtn.offsetWidth - margin;
+            const height = window.innerHeight - noBtn.offsetHeight - margin;
 
-        <div id="success" class="hidden mt-6">
-          <div class="rounded-2xl bg-white/10 border border-white/15 p-5">
-            <p class="text-2xl sm:text-3xl font-bold">Yessss 🎉</p>
-            <p id="successLine" class="text-white/90 mt-2">
-              You just made my whole week.
-            </p>
-            <p class="text-white/80 mt-3">
-              Screenshot this moment. I’ll keep it forever.
-            </p>
-          </div>
+            const nextX = Math.max(margin, Math.random() * width);
+            const nextY = Math.max(margin, Math.random() * height);
 
-          <div class="mt-4 flex flex-wrap gap-3">
-            <button id="moreHearts"
-              class="px-5 py-2.5 rounded-2xl bg-white text-indigo-700 font-semibold shadow-lg
-                     hover:scale-[1.03] active:scale-[0.98] transition">
-              More hearts
-            </button>
-
-            <button id="reset"
-              class="px-5 py-2.5 rounded-2xl bg-black/25 border border-white/25 text-white/90 font-semibold shadow-lg
-                     hover:bg-black/35 transition">
-              Replay
-            </button>
-          </div>
-        </div>
-
-        <p class="text-xs text-white/60 mt-6">
-          Made with love on GitHub Pages
-        </p>
-      </div>
-    </section>
-  </main>
-
-  <script>
-    // Personalize here
-    const HER_NAME = "Your Love"
-    const YOUR_NAME = "Pranjal"
-    const CUSTOM_LINE = "Okay, now pick a day for our Valentine plan 😄"
-
-    const titleEl = document.getElementById("title")
-    const successLineEl = document.getElementById("successLine")
-
-    titleEl.textContent = `Hey ${HER_NAME} 💗`
-    successLineEl.textContent = CUSTOM_LINE
-
-    const yesBtn = document.getElementById("yesBtn")
-    const noBtn = document.getElementById("noBtn")
-    const btnZone = document.getElementById("btnZone")
-    const hint = document.getElementById("hint")
-
-    const success = document.getElementById("success")
-    const confettiCanvas = document.getElementById("confetti")
-    const heartsLayer = document.getElementById("heartsLayer")
-    const moreHearts = document.getElementById("moreHearts")
-    const resetBtn = document.getElementById("reset")
-
-    let noIsAbsolute = false
-    let dodgeOn = true
-
-    function clamp(n, min, max) {
-      return Math.max(min, Math.min(max, n))
-    }
-
-    function makeNoAbsoluteOnce() {
-      if (noIsAbsolute) return
-      const zoneRect = btnZone.getBoundingClientRect()
-      const noRect = noBtn.getBoundingClientRect()
-
-      noBtn.style.position = "absolute"
-      noBtn.style.left = `${noRect.left - zoneRect.left}px`
-      noBtn.style.top = `${noRect.top - zoneRect.top}px`
-      noBtn.style.transition = "left 140ms ease, top 140ms ease, transform 140ms ease"
-      noBtn.style.willChange = "left, top, transform"
-
-      noIsAbsolute = true
-    }
-
-    function randomSpotAwayFrom(x, y) {
-      const zoneRect = btnZone.getBoundingClientRect()
-      const noRect = noBtn.getBoundingClientRect()
-
-      const pad = 6
-      const maxX = zoneRect.width - noRect.width - pad
-      const maxY = zoneRect.height - noRect.height - pad
-
-      let nx = Math.random() * maxX + pad
-      let ny = Math.random() * maxY + pad
-
-      const currentX = noRect.left - zoneRect.left
-      const currentY = noRect.top - zoneRect.top
-
-      for (let i = 0; i < 8; i++) {
-        const cx = currentX + noRect.width / 2
-        const cy = currentY + noRect.height / 2
-        const tx = nx + noRect.width / 2
-        const ty = ny + noRect.height / 2
-
-        const d = Math.hypot(tx - (x - zoneRect.left), ty - (y - zoneRect.top))
-        if (d > 120) break
-
-        nx = Math.random() * maxX + pad
-        ny = Math.random() * maxY + pad
-      }
-
-      return { x: clamp(nx, pad, maxX), y: clamp(ny, pad, maxY) }
-    }
-
-    function dodge(pointerX, pointerY) {
-      if (!dodgeOn) return
-      makeNoAbsoluteOnce()
-
-      const zoneRect = btnZone.getBoundingClientRect()
-      const noRect = noBtn.getBoundingClientRect()
-
-      const cx = noRect.left + noRect.width / 2
-      const cy = noRect.top + noRect.height / 2
-      const dist = Math.hypot(pointerX - cx, pointerY - cy)
-
-      if (dist > 130) return
-
-      const spot = randomSpotAwayFrom(pointerX, pointerY)
-      noBtn.style.left = `${spot.x}px`
-      noBtn.style.top = `${spot.y}px`
-      noBtn.style.transform = "scale(1.02)"
-
-      setTimeout(() => {
-        noBtn.style.transform = "scale(1)"
-      }, 160)
-    }
-
-    btnZone.addEventListener("pointermove", (e) => {
-      dodge(e.clientX, e.clientY)
-    })
-
-    noBtn.addEventListener("pointerdown", (e) => {
-      dodge(e.clientX, e.clientY)
-      hint.textContent = "Nope, that button keeps escaping 😅"
-    })
-
-    // Hearts
-    function spawnHeart(options = {}) {
-      const heart = document.createElement("div")
-      heart.textContent = options.text || "💗"
-      heart.className = "absolute select-none"
-      heart.style.left = `${options.x ?? Math.random() * window.innerWidth}px`
-      heart.style.top = `${options.y ?? window.innerHeight + 20}px`
-      heart.style.fontSize = `${options.size ?? (18 + Math.random() * 24)}px`
-      heart.style.opacity = "0"
-      heart.style.transform = "translate(-50%, -50%) scale(0.8)"
-      heartsLayer.appendChild(heart)
-
-      const start = performance.now()
-      const life = options.life ?? (1600 + Math.random() * 1200)
-      const drift = (Math.random() - 0.5) * (options.drift ?? 220)
-      const rise = options.rise ?? (260 + Math.random() * 260)
-      const spin = (Math.random() - 0.5) * 40
-
-      function tick(now) {
-        const t = (now - start) / life
-        if (t >= 1) {
-          heart.remove()
-          return
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = nextX + 'px';
+            noBtn.style.top = nextY + 'px';
+            noBtn.style.transition = 'all 0.3s cubic-bezier(0.19, 1, 0.22, 1)';
+            noBtn.style.zIndex = '9999';
         }
 
-        const ease = 1 - Math.pow(1 - t, 3)
-        const x0 = parseFloat(heart.style.left)
-        const y0 = parseFloat(heart.style.top)
-
-        const x = x0 + drift * ease
-        const y = y0 - rise * ease
-
-        const o = t < 0.12 ? t / 0.12 : (t > 0.9 ? (1 - t) / 0.1 : 1)
-        const s = 0.85 + 0.25 * Math.sin(t * Math.PI)
-
-        heart.style.opacity = `${o}`
-        heart.style.transform = `translate(-50%, -50%) translate(${x - x0}px, ${y - y0}px) rotate(${spin * ease}deg) scale(${s})`
-
-        requestAnimationFrame(tick)
-      }
-
-      requestAnimationFrame(tick)
-    }
-
-    function heartBurst() {
-      const cx = window.innerWidth / 2
-      const cy = window.innerHeight / 2
-      for (let i = 0; i < 24; i++) {
-        spawnHeart({
-          x: cx + (Math.random() - 0.5) * 40,
-          y: cy + (Math.random() - 0.5) * 30,
-          text: Math.random() > 0.5 ? "💖" : "💗",
-          life: 1400 + Math.random() * 900,
-          drift: 320 + Math.random() * 260,
-          rise: 260 + Math.random() * 320,
-          size: 18 + Math.random() * 22
-        })
-      }
-    }
-
-    // Confetti
-    let confettiRun = false
-    let confettiParticles = []
-    let confettiStopAt = 0
-
-    function resizeCanvas() {
-      const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1))
-      confettiCanvas.width = Math.floor(window.innerWidth * dpr)
-      confettiCanvas.height = Math.floor(window.innerHeight * dpr)
-      const ctx = confettiCanvas.getContext("2d")
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-    }
-
-    function makeConfetti(count = 180) {
-      confettiParticles = []
-      const colors = ["#ffffff", "#fde2e4", "#ffc8dd", "#cdb4db", "#bde0fe", "#a2d2ff"]
-      for (let i = 0; i < count; i++) {
-        confettiParticles.push({
-          x: Math.random() * window.innerWidth,
-          y: -20 - Math.random() * window.innerHeight * 0.4,
-          r: 3 + Math.random() * 4,
-          w: 6 + Math.random() * 8,
-          h: 8 + Math.random() * 14,
-          vx: (Math.random() - 0.5) * 1.8,
-          vy: 2.2 + Math.random() * 3.6,
-          rot: Math.random() * 360,
-          vr: (Math.random() - 0.5) * 6,
-          color: colors[Math.floor(Math.random() * colors.length)],
-          drift: (Math.random() - 0.5) * 0.8
-        })
-      }
-    }
-
-    function drawConfetti() {
-      if (!confettiRun) return
-      const ctx = confettiCanvas.getContext("2d")
-      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
-
-      const now = Date.now()
-      const slowDown = now > confettiStopAt
-
-      for (const p of confettiParticles) {
-        p.x += p.vx + p.drift
-        p.y += p.vy * (slowDown ? 0.65 : 1)
-        p.rot += p.vr
-
-        if (p.y > window.innerHeight + 40) {
-          p.y = -30
-          p.x = Math.random() * window.innerWidth
+        // 3. Transitions
+        function celebrate() {
+            document.getElementById('mainUI').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('mainUI').style.display = 'none';
+                document.getElementById('yesScreen').style.display = 'flex';
+                spawnGoldDust();
+            }, 500);
         }
 
-        ctx.save()
-        ctx.translate(p.x, p.y)
-        ctx.rotate((p.rot * Math.PI) / 180)
-        ctx.fillStyle = p.color
-        ctx.globalAlpha = 0.95
-        ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h)
-        ctx.restore()
-      }
-
-      if (slowDown) {
-        const left = confettiStopAt + 2200 - now
-        if (left <= 0) {
-          confettiRun = false
-          confettiCanvas.classList.add("hidden")
-          return
+        function showSad() {
+            document.getElementById('mainUI').style.display = 'none';
+            document.getElementById('noScreen').style.display = 'flex';
         }
-      }
 
-      requestAnimationFrame(drawConfetti)
-    }
+        function spawnGoldDust() {
+            for(let i=0; i<100; i++) {
+                const dust = document.createElement('div');
+                dust.style.position = 'fixed';
+                dust.style.width = '4px';
+                dust.style.height = '4px';
+                dust.style.background = 'var(--gold)';
+                dust.style.left = '50vw';
+                dust.style.top = '50vh';
+                dust.style.borderRadius = '50%';
+                dust.style.filter = 'blur(1px)';
+                document.body.appendChild(dust);
 
-    function startConfetti(ms = 5500) {
-      confettiCanvas.classList.remove("hidden")
-      resizeCanvas()
-      makeConfetti(200)
-      confettiRun = true
-      confettiStopAt = Date.now() + ms
-      requestAnimationFrame(drawConfetti)
-    }
-
-    window.addEventListener("resize", () => {
-      if (!confettiCanvas.classList.contains("hidden")) resizeCanvas()
-    })
-
-    // Main actions
-    function onYes() {
-      dodgeOn = false
-      yesBtn.disabled = true
-      noBtn.disabled = true
-
-      hint.textContent = `Okay ${HER_NAME}, I’ll take that as a yes 😄`
-      success.classList.remove("hidden")
-
-      heartBurst()
-      startConfetti(5200)
-
-      const midX = window.innerWidth / 2
-      const midY = window.innerHeight / 2
-      for (let i = 0; i < 14; i++) {
-        spawnHeart({ x: midX, y: midY, life: 1800 + Math.random() * 1200 })
-      }
-    }
-
-    yesBtn.addEventListener("click", onYes)
-
-    moreHearts.addEventListener("click", () => {
-      heartBurst()
-      for (let i = 0; i < 10; i++) spawnHeart()
-    })
-
-    resetBtn.addEventListener("click", () => {
-      location.reload()
-    })
-
-    // Ambient hearts
-    setInterval(() => {
-      if (success.classList.contains("hidden")) {
-        if (Math.random() < 0.55) spawnHeart({ rise: 220 + Math.random() * 180, drift: 120 + Math.random() * 160, life: 1600 + Math.random() * 1200 })
-      }
-    }, 260)
-  </script>
+                const angle = Math.random() * Math.PI * 2;
+                const dist = Math.random() * 800 + 200;
+                
+                dust.animate([
+                    { transform: 'translate(0,0) scale(1)', opacity: 1 },
+                    { transform: `translate(${Math.cos(angle)*dist}px, ${Math.sin(angle)*dist}px) scale(0)`, opacity: 0 }
+                ], {
+                    duration: Math.random() * 2000 + 1000,
+                    easing: 'ease-out'
+                });
+            }
+        }
+    </script>
 </body>
 </html>
