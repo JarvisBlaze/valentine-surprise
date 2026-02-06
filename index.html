@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A Question for Puchu... ✨</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        /* Force everything to show up */
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
+            /* Your lovely pink background */
             background: linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%);
             height: 100vh;
             width: 100vw;
@@ -21,183 +21,226 @@
             position: relative;
         }
 
-        /* The Main Card - Solid White for Guaranteed Visibility */
-        #proposalCard {
-            background-color: #ffffff;
-            padding: 50px 30px;
-            border-radius: 30px;
+        /* The Main Card - Solid & Visible */
+        #mainCard {
+            background: #ffffff;
+            padding: 60px 40px;
+            border-radius: 40px;
             text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
             width: 90%;
-            max-width: 450px;
-            z-index: 999; /* Put it on top of everything */
-            display: block !important;
+            max-width: 500px;
+            z-index: 100;
+            position: relative;
+            border: 4px solid #fff0f3;
         }
 
         h1 {
             font-family: 'Cinzel Decorative', cursive;
             color: #d4145a;
-            font-size: 2.8rem;
+            font-size: 3.2rem;
             margin-bottom: 10px;
         }
 
         .subtitle {
-            color: #555;
+            color: #ff6a88;
             font-weight: 700;
-            letter-spacing: 2px;
-            margin-bottom: 40px;
+            letter-spacing: 3px;
+            margin-bottom: 50px;
             text-transform: uppercase;
         }
 
-        .btn-wrap {
+        /* Buttons container */
+        .btn-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 20px;
+            gap: 30px;
             min-height: 120px;
-            position: relative;
         }
 
         .btn {
-            padding: 16px 40px;
+            padding: 18px 45px;
             font-size: 1.1rem;
             font-weight: 800;
-            border-radius: 50px;
+            border-radius: 60px;
             cursor: pointer;
             border: none;
             text-transform: uppercase;
+            letter-spacing: 2px;
             transition: transform 0.2s;
         }
 
         #yesBtn {
             background: #d4145a;
             color: white;
-            box-shadow: 0 10px 20px rgba(212, 20, 90, 0.3);
+            box-shadow: 0 10px 25px rgba(212, 20, 90, 0.4);
+            z-index: 101;
         }
 
         #noBtn {
             background: #f0f0f0;
             color: #333;
             position: relative;
-            z-index: 1000;
+            z-index: 1000; /* Stays on top to be dodged */
         }
 
-        /* The Celebration Screen */
-        #celebrationScreen {
+        /* SUCCESS SCREEN - The Cinematic Experience */
+        #successScreen {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: #fff0f3;
+            background: radial-gradient(circle, #fff0f3 0%, #ffafbd 100%);
             z-index: 2000;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 20px;
         }
 
-        .final-img {
-            max-width: 300px;
-            border-radius: 20px;
-            border: 8px solid white;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-            margin-bottom: 25px;
-        }
-
-        .cinematic-text {
+        .cinematic-header {
             font-family: 'Cinzel Decorative', cursive;
             color: #d4145a;
-            font-size: 2.2rem;
-            margin-bottom: 10px;
+            font-size: 5rem;
+            text-shadow: 0 0 20px rgba(212, 20, 90, 0.3);
+            margin-bottom: 20px;
+            animation: glow 2s infinite alternate;
         }
 
-        .funny-note {
-            color: #666;
+        @keyframes glow {
+            from { transform: scale(1); text-shadow: 0 0 10px #d4145a; }
+            to { transform: scale(1.05); text-shadow: 0 0 30px #ff6a88; }
+        }
+
+        .coming-text {
+            color: #333;
+            font-weight: 800;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .funny-quote {
+            color: #d4145a;
+            font-style: italic;
             font-weight: 600;
-            max-width: 80%;
-            line-height: 1.5;
+            max-width: 70%;
+            line-height: 1.6;
         }
 
-        .sparkle {
+        /* Animation Elements */
+        .particle, .floating-heart {
             position: fixed;
             pointer-events: none;
-            border-radius: 50%;
-            z-index: 3000;
+            z-index: 2100;
+        }
+
+        .floating-heart {
+            font-size: 30px;
+            animation: floatUp var(--d) linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
         }
     </style>
 </head>
 <body>
 
-    <div id="proposalCard">
-        <div style="font-size: 50px; margin-bottom: 15px;">💖</div>
+    <div id="mainCard">
+        <div style="font-size: 60px; margin-bottom: 20px;">🌹</div>
         <h1>Puchu</h1>
-        <p class="subtitle">Will you be my Valentine?</p>
-        <div class="btn-wrap">
-            <button id="yesBtn" class="btn" onclick="handleYes()">Yes! 🥰</button>
-            <button id="noBtn" class="btn" onmouseover="dodgeNo()">No</button>
+        <p class="subtitle">Be my Valentine?</p>
+        <div class="btn-container">
+            <button id="yesBtn" class="btn" onclick="celebrate()">YES! 🥰</button>
+            <button id="noBtn" class="btn" onmouseover="dodge()">No</button>
         </div>
     </div>
 
-    <div id="celebrationScreen">
-        <img src="WhatsApp%20Image%202026-02-07%20at%2000.57.44.jpeg" class="final-img" alt="Puchu">
-        <h1 class="cinematic-text">I knew it! ✨</h1>
-        <h2 style="color: #333; margin-bottom: 15px;">I will come after you on 14th :]]]</h2>
-        <p class="funny-note">You didn't really have a choice anyway—I've been practicing my "No" button dodging skills for weeks! Prepare for maximum pampering. ❤️</p>
+    <div id="successScreen">
+        <h1 class="cinematic-header">Forever. ✨</h1>
+        <p class="coming-text">I will come after you on 14th :]]]</p>
+        <p class="funny-quote">
+            "Don't even try to hide, Puchu. I've already programmed my GPS to track the smell of your favorite chocolate and the sound of your laughter! 😉❤️"
+        </p>
+        <div style="font-size: 100px; margin-top: 50px; filter: drop-shadow(0 0 20px #d4145a);">💖</div>
     </div>
 
     <script>
         const noBtn = document.getElementById('noBtn');
 
-        // Logic to keep the button STRICTLY on screen
-        function dodgeNo() {
-            const margin = 100; // Buffer so it stays away from the edges
-            const maxX = window.innerWidth - noBtn.offsetWidth - margin;
-            const maxY = window.innerHeight - noBtn.offsetHeight - margin;
+        // IMPROVED DODGE LOGIC: Strictly keeps button inside window bounds
+        function dodge() {
+            const margin = 120; // Safe distance from all screen edges
+            const maxWidth = window.innerWidth - noBtn.offsetWidth - margin;
+            const maxHeight = window.innerHeight - noBtn.offsetHeight - margin;
 
-            // Generate random but safe coordinates
-            const newX = Math.max(margin, Math.random() * maxX);
-            const newY = Math.max(margin, Math.random() * maxY);
+            // Coordinates that are guaranteed to be on the screen
+            const randomX = Math.max(margin, Math.random() * maxWidth);
+            const randomY = Math.max(margin, Math.random() * maxHeight);
 
             noBtn.style.position = 'fixed';
-            noBtn.style.left = newX + 'px';
-            noBtn.style.top = newY + 'px';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+            noBtn.style.transition = 'all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
         }
 
-        function handleYes() {
-            // Hide the card, show the cinematic page
-            document.getElementById('proposalCard').style.display = 'none';
-            const screen = document.getElementById('celebrationScreen');
+        function celebrate() {
+            document.getElementById('mainCard').style.display = 'none';
+            const screen = document.getElementById('successScreen');
             screen.style.display = 'flex';
             
-            // Start the cinematic burst
-            triggerBurst();
+            // Launch the cinematic animations
+            startParticleBurst();
+            startHeartRain();
         }
 
-        function triggerBurst() {
-            const colors = ['#d4145a', '#ffafbd', '#ffd700', '#ffffff'];
-            for(let i=0; i<150; i++) {
-                const s = document.createElement('div');
-                s.className = 'sparkle';
-                const size = Math.random() * 10 + 5 + 'px';
-                s.style.width = size;
-                s.style.height = size;
-                s.style.background = colors[Math.floor(Math.random() * colors.length)];
-                s.style.left = '50vw';
-                s.style.top = '50vh';
-                s.style.boxShadow = `0 0 10px ${s.style.background}`;
-                document.body.appendChild(s);
+        // 1. Explosive Particle Burst
+        function startParticleBurst() {
+            const colors = ['#d4145a', '#ffafbd', '#ffd700', '#ffffff', '#ff6a88'];
+            for(let i=0; i<250; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                const size = Math.random() * 12 + 6 + 'px';
+                p.style.width = size;
+                p.style.height = size;
+                p.style.background = colors[Math.floor(Math.random() * colors.length)];
+                p.style.borderRadius = '50%';
+                p.style.left = '50vw';
+                p.style.top = '50vh';
+                p.style.boxShadow = `0 0 15px ${p.style.background}`;
+                document.body.appendChild(p);
 
                 const angle = Math.random() * Math.PI * 2;
-                const distance = Math.random() * 1200 + 400;
+                const dist = Math.random() * 1500 + 500;
                 
-                s.animate([
+                p.animate([
                     { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
-                    { transform: `translate(${Math.cos(angle)*distance}px, ${Math.sin(angle)*distance}px) scale(0)`, opacity: 0 }
+                    { transform: `translate(${Math.cos(angle)*dist}px, ${Math.sin(angle)*dist}px) scale(0)`, opacity: 0 }
                 ], {
-                    duration: Math.random() * 2000 + 1000,
+                    duration: Math.random() * 2500 + 1500,
                     easing: 'cubic-bezier(0, .9, .57, 1)'
-                }).onfinish = () => s.remove();
+                }).onfinish = () => p.remove();
             }
+        }
+
+        // 2. Continuous Floating Hearts
+        function startHeartRain() {
+            const container = document.getElementById('successScreen');
+            const hearts = ['❤️', '💖', '💕', '🌹', '✨'];
+            
+            setInterval(() => {
+                const h = document.createElement('div');
+                h.className = 'floating-heart';
+                h.innerText = hearts[Math.floor(Math.random() * hearts.length)];
+                h.style.left = Math.random() * 100 + 'vw';
+                h.style.setProperty('--d', Math.random() * 3 + 3 + 's'); // Duration
+                container.appendChild(h);
+                
+                setTimeout(() => h.remove(), 6000);
+            }, 150);
         }
     </script>
 </body>
