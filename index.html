@@ -6,11 +6,10 @@
     <title>A Question for Puchu... ✨</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Essential Reset */
+        /* Force everything to show up */
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            /* The lovely pink background */
             background: linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%);
             height: 100vh;
             width: 100vw;
@@ -22,73 +21,74 @@
             position: relative;
         }
 
-        /* The Main Proposal Card - Fixed Visibility */
-        #mainCard {
-            background: white;
+        /* The Main Card - Solid White for Guaranteed Visibility */
+        #proposalCard {
+            background-color: #ffffff;
             padding: 50px 30px;
             border-radius: 30px;
             text-align: center;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
             width: 90%;
             max-width: 450px;
-            z-index: 100; /* Ensure it stays on top */
-            position: relative;
+            z-index: 999; /* Put it on top of everything */
+            display: block !important;
         }
 
         h1 {
             font-family: 'Cinzel Decorative', cursive;
             color: #d4145a;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             margin-bottom: 10px;
         }
 
         .subtitle {
             color: #555;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: 2px;
             margin-bottom: 40px;
             text-transform: uppercase;
         }
 
-        /* Buttons Area */
         .btn-wrap {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 20px;
-            min-height: 100px;
+            min-height: 120px;
+            position: relative;
         }
 
         .btn {
-            padding: 15px 35px;
-            font-size: 1rem;
-            font-weight: 700;
+            padding: 16px 40px;
+            font-size: 1.1rem;
+            font-weight: 800;
             border-radius: 50px;
             cursor: pointer;
             border: none;
-            transition: transform 0.2s;
             text-transform: uppercase;
+            transition: transform 0.2s;
         }
 
         #yesBtn {
             background: #d4145a;
             color: white;
-            box-shadow: 0 5px 15px rgba(212, 20, 90, 0.3);
+            box-shadow: 0 10px 20px rgba(212, 20, 90, 0.3);
         }
 
         #noBtn {
-            background: #eee;
+            background: #f0f0f0;
             color: #333;
             position: relative;
+            z-index: 1000;
         }
 
-        /* Yes Screen Overlay */
-        #yesOverlay {
+        /* The Celebration Screen */
+        #celebrationScreen {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: #fff0f3;
-            z-index: 1000;
+            z-index: 2000;
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -96,107 +96,107 @@
             padding: 20px;
         }
 
-        .puchu-img {
+        .final-img {
             max-width: 300px;
-            max-height: 400px;
             border-radius: 20px;
             border: 8px solid white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            margin-bottom: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            margin-bottom: 25px;
         }
 
-        .final-msg {
+        .cinematic-text {
             font-family: 'Cinzel Decorative', cursive;
             color: #d4145a;
-            font-size: 2rem;
+            font-size: 2.2rem;
             margin-bottom: 10px;
         }
 
-        .funny-msg {
-            color: #777;
+        .funny-note {
+            color: #666;
             font-weight: 600;
             max-width: 80%;
-            line-height: 1.4;
+            line-height: 1.5;
         }
 
-        /* Celebration Particles */
-        .particle {
+        .sparkle {
             position: fixed;
             pointer-events: none;
             border-radius: 50%;
-            z-index: 1100;
+            z-index: 3000;
         }
     </style>
 </head>
 <body>
 
-    <div id="mainCard">
-        <div style="font-size: 40px; margin-bottom: 10px;">🌹</div>
+    <div id="proposalCard">
+        <div style="font-size: 50px; margin-bottom: 15px;">💖</div>
         <h1>Puchu</h1>
         <p class="subtitle">Will you be my Valentine?</p>
         <div class="btn-wrap">
-            <button id="yesBtn" class="btn" onclick="sayYes()">Yes! 🥰</button>
+            <button id="yesBtn" class="btn" onclick="handleYes()">Yes! 🥰</button>
             <button id="noBtn" class="btn" onmouseover="dodgeNo()">No</button>
         </div>
     </div>
 
-    <div id="yesOverlay">
-        <img src="WhatsApp%20Image%202026-02-07%20at%2000.57.44.jpeg" class="puchu-img" alt="Puchu">
-        <h1 class="final-msg">I knew it! ✨</h1>
-        <h2 style="color: #333; margin-bottom: 10px;">I will come after you on 14th :]]]</h2>
-        <p class="funny-msg">Better start preparing, because you're about to be the most pampered person on the planet. Don't try to hide, I've already hacked your heart! 😉❤️</p>
+    <div id="celebrationScreen">
+        <img src="WhatsApp%20Image%202026-02-07%20at%2000.57.44.jpeg" class="final-img" alt="Puchu">
+        <h1 class="cinematic-text">I knew it! ✨</h1>
+        <h2 style="color: #333; margin-bottom: 15px;">I will come after you on 14th :]]]</h2>
+        <p class="funny-note">You didn't really have a choice anyway—I've been practicing my "No" button dodging skills for weeks! Prepare for maximum pampering. ❤️</p>
     </div>
 
     <script>
         const noBtn = document.getElementById('noBtn');
 
-        // FIXED DODGE LOGIC: Strictly keeps button on screen
+        // Logic to keep the button STRICTLY on screen
         function dodgeNo() {
-            const margin = 100; // Buffer so it doesn't touch the edge
-            const maxWidth = window.innerWidth - noBtn.offsetWidth - margin;
-            const maxHeight = window.innerHeight - noBtn.offsetHeight - margin;
+            const margin = 100; // Buffer so it stays away from the edges
+            const maxX = window.innerWidth - noBtn.offsetWidth - margin;
+            const maxY = window.innerHeight - noBtn.offsetHeight - margin;
 
-            // Generate positions within the safe zone
-            const newX = Math.max(margin, Math.random() * maxWidth);
-            const newY = Math.max(margin, Math.random() * maxHeight);
+            // Generate random but safe coordinates
+            const newX = Math.max(margin, Math.random() * maxX);
+            const newY = Math.max(margin, Math.random() * maxY);
 
             noBtn.style.position = 'fixed';
             noBtn.style.left = newX + 'px';
             noBtn.style.top = newY + 'px';
-            noBtn.style.transition = '0.2s ease-out';
         }
 
-        function sayYes() {
-            document.getElementById('mainCard').style.display = 'none';
-            document.getElementById('yesOverlay').style.display = 'flex';
-            burstParticles();
+        function handleYes() {
+            // Hide the card, show the cinematic page
+            document.getElementById('proposalCard').style.display = 'none';
+            const screen = document.getElementById('celebrationScreen');
+            screen.style.display = 'flex';
+            
+            // Start the cinematic burst
+            triggerBurst();
         }
 
-        // The "Cool" Cinematic Burst
-        function burstParticles() {
+        function triggerBurst() {
             const colors = ['#d4145a', '#ffafbd', '#ffd700', '#ffffff'];
             for(let i=0; i<150; i++) {
-                const p = document.createElement('div');
-                p.className = 'particle';
-                const size = Math.random() * 8 + 4 + 'px';
-                p.style.width = size;
-                p.style.height = size;
-                p.style.background = colors[Math.floor(Math.random() * colors.length)];
-                p.style.left = '50vw';
-                p.style.top = '50vh';
-                p.style.boxShadow = `0 0 10px ${p.style.background}`;
-                document.body.appendChild(p);
+                const s = document.createElement('div');
+                s.className = 'sparkle';
+                const size = Math.random() * 10 + 5 + 'px';
+                s.style.width = size;
+                s.style.height = size;
+                s.style.background = colors[Math.floor(Math.random() * colors.length)];
+                s.style.left = '50vw';
+                s.style.top = '50vh';
+                s.style.boxShadow = `0 0 10px ${s.style.background}`;
+                document.body.appendChild(s);
 
                 const angle = Math.random() * Math.PI * 2;
-                const dist = Math.random() * 1200 + 400;
+                const distance = Math.random() * 1200 + 400;
                 
-                p.animate([
+                s.animate([
                     { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
-                    { transform: `translate(${Math.cos(angle)*dist}px, ${Math.sin(angle)*dist}px) scale(0)`, opacity: 0 }
+                    { transform: `translate(${Math.cos(angle)*distance}px, ${Math.sin(angle)*distance}px) scale(0)`, opacity: 0 }
                 ], {
                     duration: Math.random() * 2000 + 1000,
                     easing: 'cubic-bezier(0, .9, .57, 1)'
-                }).onfinish = () => p.remove();
+                }).onfinish = () => s.remove();
             }
         }
     </script>
