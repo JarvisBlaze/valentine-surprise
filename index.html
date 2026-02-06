@@ -3,89 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Question for My Valentine... 🌹</title>
+    <title>A Divine Question... 🌹</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-gold: #d4af37;
-            --deep-red: #4a0000;
-            --sexy-crimson: #8e0038;
+            --gold: #d4af37;
+            --crimson: #8e0038;
+            --deep-wine: #4a0000;
         }
 
-        body {
+        body, html {
             margin: 0;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: radial-gradient(circle at center, #8e0038 0%, #4a0000 100%);
-            font-family: 'Montserrat', sans-serif;
+            padding: 0;
+            width: 100%;
+            height: 100%;
             overflow: hidden;
+            background: radial-gradient(circle at center, var(--crimson) 0%, var(--deep-wine) 100%);
+            font-family: 'Montserrat', sans-serif;
             color: #fff;
         }
 
-        /* Glassmorphism Main Card */
+        /* Glassmorphism Card */
         .glass-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 30px;
+            border-radius: 40px;
             padding: 60px 40px;
             text-align: center;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
             z-index: 10;
-            width: 85%;
+            width: 90%;
             max-width: 500px;
         }
 
         h1 {
             font-family: 'Cinzel Decorative', cursive;
-            font-size: 2.8rem;
+            font-size: 3rem;
             margin-bottom: 10px;
-            background: linear-gradient(to bottom, #fff, #d4af37);
+            background: linear-gradient(to bottom, #fff, var(--gold));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
         }
 
         .subtitle {
             font-size: 1.1rem;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
             opacity: 0.8;
             font-weight: 300;
         }
 
-        .heart-main {
-            font-size: 50px;
-            margin-bottom: 20px;
-            animation: pulse 2s infinite ease-in-out;
-            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.5));
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.15); opacity: 1; }
-        }
-
-        .button-group {
+        /* Buttons Container */
+        .btn-wrap {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 30px;
-            height: 80px;
-            position: relative;
+            gap: 40px;
+            min-height: 80px;
         }
 
         button {
-            padding: 15px 40px;
-            font-size: 1rem;
+            padding: 16px 45px;
+            font-size: 1.1rem;
             font-weight: 600;
-            border-radius: 50px;
+            border-radius: 100px;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
             font-family: 'Montserrat', sans-serif;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -93,152 +84,138 @@
         }
 
         #yesBtn {
-            background: linear-gradient(45deg, #d4af37, #f9e297);
-            color: #4a0000;
-            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
-        }
-
-        #yesBtn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.5);
+            background: linear-gradient(45deg, var(--gold), #f9e297);
+            color: var(--deep-wine);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+            z-index: 15;
         }
 
         #noBtn {
             background: rgba(255, 255, 255, 0.1);
             color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            position: absolute;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            z-index: 100; /* High z-index to stay on top */
+            position: relative; /* Default relative, script will toggle to fixed */
         }
 
-        /* Overlays */
+        /* Celebration Screen */
         .overlay {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 100;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1000;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            background: linear-gradient(135deg, #2b0000 0%, #8e0038 100%);
             text-align: center;
-            background: rgba(0, 0, 0, 0.95);
-            padding: 20px;
+        }
+
+        .floating-heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.4);
+            pointer-events: none;
+            z-index: 999;
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            from { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            to { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
         }
 
         .sad-gif {
-            width: 280px;
+            width: 250px;
             border-radius: 20px;
-            border: 3px solid var(--primary-gold);
-            margin-bottom: 30px;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+            border: 2px solid var(--gold);
+            margin-bottom: 20px;
         }
 
-        .celebration-title {
-            font-family: 'Cinzel Decorative', cursive;
-            color: var(--primary-gold);
-            font-size: 3.5rem;
-        }
-
-        .retry-link {
-            margin-top: 30px;
-            color: var(--primary-gold);
-            text-decoration: underline;
+        .retry-text {
+            color: var(--gold);
             cursor: pointer;
-            font-size: 0.9rem;
-        }
-
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            animation: fall 3s linear forwards;
-        }
-
-        @keyframes fall {
-            to { transform: translateY(110vh) rotate(720deg); }
+            text-decoration: underline;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
-    <div class="glass-card" id="mainContainer">
-        <div class="heart-main">✨❤️✨</div>
-        <h1>My Dearest Puchu!!</h1>
+    <div class="glass-card" id="mainCard">
+        <div style="font-size: 50px; margin-bottom: 20px;">✨❤️✨</div>
+        <h1>My Dearest Puchu!</h1>
         <p class="subtitle">Will you be my Valentine?</p>
-        <div class="button-group">
-            <button id="noBtn" onmouseover="moveNo()" onclick="showSad()">No</button>
-            <button id="yesBtn" onclick="showSuccess()">Yes, Always</button>
+        <div class="btn-wrap">
+            <button id="yesBtn" onclick="celebrate()">Yes, Always</button>
+            <button id="noBtn" onmouseover="flyAway()" onclick="showSad()">No</button>
         </div>
     </div>
 
-    <div id="sadOverlay" class="overlay">
-        <img src="9e497f8c506f6a79c406e347634ecdb5.gif" alt="Devastated Dudu" class="sad-gif">
-        <h2 style="font-family: 'Cinzel Decorative'; color: #ff6b6b;">Wait... really? 🥺</h2>
-        <p>Look at how sad you made him. <br>Are you sure you didn't mean to click the shiny gold button?</p>
-        <div class="retry-link" onclick="backToMain()">Actually, let me fix that...</div>
+    <div id="sadOverlay" class="overlay" style="background: rgba(0,0,0,0.95);">
+        <img src="9e497f8c506f6a79c406e347634ecdb5.gif" alt="Sad Dudu" class="sad-gif">
+        <h2 style="font-family: 'Cinzel Decorative'; color: #ff6b6b;">Wait... No? 🥺</h2>
+        <p>I'm not crying, you're crying... <br>Please tell me that was a mis-click.</p>
+        <div class="retry-text" onclick="reset()">Let me try again (the right way)</div>
     </div>
 
-    <div id="successOverlay" class="overlay" style="background: linear-gradient(135deg, #4a0000 0%, #8e0038 100%);">
-        <h1 class="celebration-title">Divine Choice. ✨</h1>
-        <p style="font-size: 1.4rem;">I knew you had exquisite taste. <br>See you on the 14th, my love.</p>
-        <div style="font-size: 100px; margin-top: 20px;">🌹</div>
+    <div id="yesOverlay" class="overlay">
+        <h1 style="font-size: 4rem; color: var(--gold); margin: 0;">It's a Date. 😉</h1>
+        <p style="font-size: 1.5rem; letter-spacing: 5px;">YOU + ME <br> FEB 14TH</p>
+        <div style="font-size: 80px; margin-top: 20px; animation: pulse 1s infinite;">💖</div>
     </div>
 
     <script>
         const noBtn = document.getElementById('noBtn');
-        const main = document.getElementById('mainContainer');
-        const sad = document.getElementById('sadOverlay');
-        const success = document.getElementById('successOverlay');
 
-        function moveNo() {
-            // Generates random movement but keeps it within the screen
-            const padding = 50;
-            const maxX = window.innerWidth - noBtn.offsetWidth - padding;
-            const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+        function flyAway() {
+            // Calculate random positions across the whole screen
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
             
-            const randomX = Math.random() * maxX;
-            const randomY = Math.random() * maxY;
-
             noBtn.style.position = 'fixed';
-            noBtn.style.left = randomX + 'px';
-            noBtn.style.top = randomY + 'px';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+            noBtn.style.transition = 'all 0.2s ease';
+        }
+
+        function celebrate() {
+            document.getElementById('mainCard').style.display = 'none';
+            document.getElementById('yesOverlay').style.display = 'flex';
+            startHearts();
         }
 
         function showSad() {
-            main.style.display = 'none';
-            sad.style.display = 'flex';
+            document.getElementById('mainCard').style.display = 'none';
+            document.getElementById('sadOverlay').style.display = 'flex';
         }
 
-        function backToMain() {
-            sad.style.display = 'none';
-            main.style.display = 'block';
-            // Reset No button position
-            noBtn.style.position = 'absolute';
+        function reset() {
+            document.getElementById('sadOverlay').style.display = 'none';
+            document.getElementById('mainCard').style.display = 'block';
+            // Return No button to original spot
+            noBtn.style.position = 'relative';
             noBtn.style.left = '0';
             noBtn.style.top = '0';
         }
 
-        function showSuccess() {
-            main.style.display = 'none';
-            success.style.display = 'flex';
-            spawnConfetti();
-        }
-
-        function spawnConfetti() {
-            const colors = ['#d4af37', '#ffffff', '#ff3d6e'];
-            for(let i=0; i<150; i++) {
-                const c = document.createElement('div');
-                c.className = 'confetti';
-                c.style.left = Math.random() * 100 + 'vw';
-                c.style.top = '-10px';
-                c.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                c.style.width = Math.random() * 8 + 4 + 'px';
-                c.style.height = c.style.width;
-                c.style.animationDuration = Math.random() * 2 + 1 + 's';
-                c.style.animationDelay = Math.random() * 1 + 's';
-                document.body.appendChild(c);
+        function startHearts() {
+            const container = document.getElementById('yesOverlay');
+            const heartTypes = ['❤️', '💖', '✨', '🌹', '💕'];
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'floating-heart';
+                    heart.innerText = heartTypes[Math.floor(Math.random() * heartTypes.length)];
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                    heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    container.appendChild(heart);
+                    
+                    // Remove heart after animation
+                    setTimeout(() => heart.remove(), 5000);
+                }, i * 100);
             }
         }
     </script>
